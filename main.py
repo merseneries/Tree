@@ -1,5 +1,6 @@
 import os
 import json
+from colored import fore, back, style
 
 current_dir = r"E:\PycharmProjects\TestBad\resources"
 
@@ -23,7 +24,22 @@ def loop_tree(cur_dir):
     else:
         return file_list
     tmp.append(file_list)
-    print(json.dumps(tmp,indent=4))
+    return tmp
 
 
-loop_tree(current_dir)
+def color_path(all_path):
+    tmp = ""
+    for one in all_path:
+        if type(one) == dict:
+            for k, v in one.items():
+                tmp += fore.SPRING_GREEN_4 + style.BOLD + k + "\n"
+                tmp += color_path(v)
+        elif type(one) == list:
+            tmp += color_path(one)
+        else:
+            tmp += fore.LIGHT_YELLOW + one + "\n"
+    return tmp
+
+
+path = loop_tree(current_dir)
+path = color_path(path)
