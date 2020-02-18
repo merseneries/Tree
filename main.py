@@ -1,7 +1,6 @@
 import os
 import json
-
-current_dir = r"E:\PycharmProjects\TestBad\resources"
+import sys
 
 
 def loop_tree(cur_dir):
@@ -23,7 +22,11 @@ def loop_tree(cur_dir):
     else:
         return file_list
     tmp.append(file_list)
-    print(json.dumps(tmp,indent=4))
+
+    print(json.dumps(tmp, indent=4))
 
 
-loop_tree(current_dir)
+if __name__ == "__main__":
+    first_arg = sys.argv
+    first_arg = first_arg[1] if len(first_arg) > 1 else os.getcwd()
+    loop_tree(first_arg)
